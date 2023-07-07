@@ -1,0 +1,61 @@
+body {
+  background: #272B33;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+h3 {
+  font-size: 26px;
+  line-height: 1.4;
+  font-weight: 400;
+
+}
+
+.cards__container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: #3C3E44;
+  border-radius: 10px;
+  overflow: hidden;
+  color: #fff;
+}
+
+.card__content {
+  padding: 20px;
+
+}
+
+.card__status {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-alive {
+  width: 10px;
+  height: 10px;
+  background: green;
+  border-radius: 100%;
+}
+
+.status-dead {
+  background: red;
+}
+
+.card__descr {
+  margin-top: 8px;
+  color: #aaaaaa;
+}
+
+img {
+  max-width: 100%;
+  width: 100%;
+}
