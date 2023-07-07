@@ -1,13 +1,39 @@
-fetch('https://rickandmortyapi.com/api/character')
+let characters = []; // Define an empty array to store the character data
+
+let page = 1
+
+fetchCharacters() // Call the function of unloading the first characters
+
+// Function for unloading characters
+function fetchCharacters () {
+  const url = `https://rickandmortyapi.com/api/character?page=${page}`
+
+  fetch(url)
   .then(response => response.json())
   .then(data => {
+    characters = [...characters, ...data.results]
     createCard(data.results)
     console.log(data)
   })
   .catch(error => console.log(error))
+}
+
+  //Search
+  const searchInput = document.querySelector('#search-input');
+  searchInput.addEventListener('input', handleSearch);
+  
+  function handleSearch() {
+    const searchText = searchInput.value.toLowerCase();
+    const filteredCharacters = characters.filter(character =>
+      character.name.toLowerCase().startsWith(searchText)
+    );
+    clearCards();
+    createCard(filteredCharacters);
+  }
 
   const cardsContainer = document.querySelector('.cards__container')
 
+//Creating character cards
   function createCard (characters) {
     characters.forEach(character => {
       const card = document.createElement('card')
@@ -51,8 +77,6 @@ fetch('https://rickandmortyapi.com/api/character')
       const location = document.createElement('p');
       location.textContent = character.location.name
 
-
-
       info.append(mark, status, species)
       cardContent.append(img, name, info, speciesText, species, descr, location)
 
@@ -60,3 +84,22 @@ fetch('https://rickandmortyapi.com/api/character')
       cardsContainer.append(card)
     });
   }
+
+  function clearCards() {
+    while (cardsContainer.firstChild) {
+      cardsContainer.removeChild(cardsContainer.firstChild);
+    }
+  }
+
+  // Scroll event handler
+  window.addEventListener('scroll', () => {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement
+    if (scrollTop + clientHeight >= scrollHeight - 100) {
+      page++
+      fetchCharacters() // Call the function to unload the following characters
+    }
+  })
+
+
+  
+  
